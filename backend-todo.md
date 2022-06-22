@@ -1,3 +1,11 @@
 # Backend javascript
 - fetch api
 - ajax
+- tiling manager window
+- wsl
+- garuda linux 
+- git
+- kali linux persistant live boot
+- dutch bet
+- Python Cookbook 
+- Problem Solving with Algorithms and Data Structures using Python
