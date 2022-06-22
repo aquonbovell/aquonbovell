@@ -1,4 +1,4 @@
-# UWI - Year II
+# UWI - Year II / III
 ## semster I
 - COMP2232 Object-Oriented Programming Concepts
 - COMP2611 Data Structures
@@ -13,3 +13,11 @@
 - COMP2225 Software Engineering
 - MATH2310 Abstract Algebra 1
 - MATH2321 Real Analysis 1
+
+###############################
+## MATH ELECTIVES
+- MATH3575 Topics in Numerical Analysis 
+- MATH3580 Fourier Analysis with Partial Differential Equations 
+- MATH3600 Topics in Discrete & Computational Geometry
+- MATH3605 Topics in Graph Theory
+- MATH3955 Mathematics Internship
