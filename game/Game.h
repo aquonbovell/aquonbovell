@@ -3,12 +3,13 @@
 #define GAME_H
 #include "Player.h"
 #include <array>
-#include <string>
 
-class Game : Player{
+class Game : public Player{
 public:
 	static const int colums{6};
 	static const int rows{6};
+	std::array <std::array< int,colums>, rows> playerArray;
+	std::array <std::array< int,colums>, rows> solutionArray;
 	enum Status
 	{
 		WON,
@@ -19,50 +20,56 @@ public:
 		END,
 		UNDEFINED
 	};
-
+	Status status;
 	enum Level
 	{
 		ROOKIE,
 		TUFFTONG,
 		HARDSEED
 	};
+	Level level;
+
+	//contructor
+	Game(std::string playerName = "Player1", int Age = 12);
+	
 	//intro
 	void intro(std::string name);
+	
+	//level selection
 	int stringToLevel(std::string level);
+	
 	// hints
 	int getRookieHint() const;
 	int getTuffTongHint() const;
 	int getHardSeedHint() const;
 	void requestHint(enum Level level);
-	void addNumberHint(size_t rn, enum Level level);
-	void giveAHint(std::array<std::array< int,colums>, rows>& solutionArray,std::array <std::array< int,colums>, rows>& playerArray,size_t rn,size_t cn ,size_t p);
+	void addHint(enum Level level);
+	
 	//score
 	int getScore() const;
-	void decreaseScore(int n);
+	void decreaseScore(int num_requests);
+	
 	//set arrays
+	void createGame(std::array <std::array< int,colums>, rows>& array);
 	void createCopy(std::array<std::array< int,colums>, rows>& solutionArray,std::array <std::array< int,colums>, rows>& playerArray);
-	void createGame(std::array <std::array< int,colums>, rows>& solutionArray);
-	void removeSlots(std::array <std::array< int,colums>, rows>& Array, int amount);
-	void removeNumbers(int);	
+	void removeSlots(std::array <std::array< int,colums>, rows>& array, int remove_amount);	
+	
 	//check arrays
-	bool checkBoard(size_t rn,size_t cn ,size_t p);
-	bool checkIfBoardIsFilled(size_t rn,size_t cn);
-	bool isCompleted(std::array <std::array< int,colums>, rows>& playerArray);
-	bool checkPlayersBoard();
-	bool isInputCorrect(std::array<std::array< int,colums>, rows>& solutionArray,std::array <std::array< int,colums>, rows>& playerArray,size_t rn,size_t cn ,size_t p);
-	bool checkIfFilled(std::array <std::array< int,colums>, rows>& playerArray,size_t rn,size_t cn);
+	bool isCompleted(std::array <std::array< int,colums>, rows>& array);
+	bool isInputCorrect(std::array<std::array< int,colums>, rows>& solutionArray,std::array <std::array< int,colums>, rows>& playerArray,size_t row_num,size_t col_num,int number);
+	bool isFilled(std::array <std::array< int,colums>, rows>& array,size_t row_num,size_t col_num);
+	
 	//display arrays
-	void displayArray(std::array <std::array< int,colums>, rows>& Array);
+	void displayArray(std::array <std::array< int,colums>, rows>& array);
+	
 	//reset score and hints
-	void setHintsAndScore();
-  //terminate game
-	int Game::stringToEndgame(std::string endGame);
+	void reset();
+  
+	//terminate game
+	int stringToEndgame(std::string endGame);
 	void endGame();
 
 private:
 	int score, tufftonghint, hardseedhint, rookiehint;
-	std::array <std::array< int,colums>, rows>& playerArray;
-	std::array <std::array< int,colums>, rows>& solutionArray;
-
 };
 #endif

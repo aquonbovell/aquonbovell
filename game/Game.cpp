@@ -7,86 +7,8 @@
 
 using std::cout; using std::endl;
 
-void Game::createGame(std::array <std::array< int,colums>, rows>& solutionArray)
-{
-	srand(time(0));
-
-	for (size_t i = 0; i < solutionArray.size(); i++)
-	{
-	repeat:
-		for (size_t j = 0; j < solutionArray.size(); j++)
-		{
-			solutionArray[i][j] = rand() % colums + 1;
-
-			for (size_t h = 0; h < j; h++)
-			{
-				while (solutionArray[i][j] == solutionArray[i][h])
-				{
-					solutionArray[i][j] = rand() % colums + 1;
-					goto repeat;
-				}
-			}
-			for (int k = 0; k < i; k++)
-			{
-				while (solutionArray[i][j] == solutionArray[k][j])
-				{
-					solutionArray[i][j] = rand() % colums + 1;
-					goto repeat;
-				}
-			}
-		}
-	}
-};
-
-void Game::createCopy(std::array<std::array< int,colums>, rows>& solutionArray,std::array <std::array< int,colums>, rows>& playerArray)
-{
-	for (auto const row : solutionArray)
-	{
-		for (auto const element : row)
-			playerArray = solutionArray;
-	}
-};
-
-void Game::removeSlots(std::array <std::array< int,colums>, rows>& Array, int amount) {
-	int count(0), randnum(0);
-	while (count != amount) {
-		for (auto& row : Array) {
-			for (auto& element : row) {
-				randnum = rand() % colums + 1;
-				if ((randnum == element) && count < amount) {
-					element = 0;
-					count++;
-				}
-			}
-		}
-	}
-};
-
-void Game::displayArray(std::array <std::array< int,colums>, rows>& Array)
-{
-	cout << endl << "-------------------------" << endl;
-	for (auto const& row : Array)
-	{
-		cout<<"| ";
-		for (auto const& element : row)
-		{
-			cout << element << " | ";
-		}
-			cout << endl << "-------------------------" << endl;
-	}
-};
-
-bool Game::isCompleted(std::array <std::array< int,colums>, rows>& playerArray)
-{
-	int unfilled(0);
-
-	for (auto const row : playerArray)
-	{
-		for (auto const element : row)
-			if (element == 0)
-				unfilled++;
-	}
-	return (unfilled == 0)? true : false;
+Game::Game(std::string playerName, int Age) : Player(playerName, Age) {
+	intro(Player::getName());
 };
 
 void Game::intro(std::string name){
@@ -106,51 +28,22 @@ void Game::intro(std::string name){
 int Game::stringToLevel(std::string level){
 	std::transform(level.begin(), level.end(), level.begin(), ::toupper);
 	if(level == "ROOKIE" || level == "R"){
-		return 20;
+		return 1;
 	} else if (level == "TUFFTONG" || level == "T" )
 	{
-		return 21;
+		return 2;
 	} else if (level == "HARDSEED" || level == "H")
 	{
-		return 22;
+		return 3;
 	} else if (level == "QUIT" || level == "Q")
 	{
-		return 50;
+		return 4;
 	}
 	else
 	{
-		return 30;
+		return 5;
 	}
 }
-
-bool Game::isInputCorrect(std::array<std::array< int,colums>, rows>& solutionArray,std::array <std::array< int,colums>, rows>& playerArray, size_t rn,size_t cn ,size_t pn){
-	if (pn == solutionArray[rn][cn]){
-		playerArray[rn][cn] = pn;
-		return true;
-	}
-	else
-		return false;
-}
-
-bool Game::checkIfFilled(std::array <std::array< int,colums>, rows>& playerArray,size_t rn,size_t cn){
-	return (playerArray[rn][cn] != 0)? true :false;
-}
-
-int Game::stringToEndgame(std::string endGame){
-	std::transform(endGame.begin(), endGame.end(), endGame.begin(), ::toupper);
-	if(endGame== "YES" || endGame == "YE" || endGame == "Y"){
-		return 90;
-	} else if (endGame == "NO" || endGame == "N" )
-	{
-		return 91;
-	}
-	else
-	{
-		return 95;
-	}
-}
-
-int Game::getScore() const { return score; };
 
 int Game::getRookieHint() const { return rookiehint; };
 
@@ -158,35 +51,21 @@ int Game::getTuffTongHint() const { return tufftonghint; };
 
 int Game::getHardSeedHint() const { return hardseedhint; };
 
-void Game::setHintsAndScore() { rookiehint = 2; tufftonghint = 3; hardseedhint = 4; score = 20; };
-
 void Game::requestHint(enum Level level) {
 	static int num_requests = 1;
 	switch (level)
 	{
 	case ROOKIE:
-		if (rookiehint == 1){
-			rookiehint = 0;
-			score = 0;
-		} else
 			rookiehint -=1;
 			decreaseScore(num_requests);
 			num_requests++;
 		break;
 	case TUFFTONG:
-		if (tufftonghint == 1){
-			tufftonghint = 0;
-			score = 0;
-		} else
 			tufftonghint -=1;
 			decreaseScore(num_requests);
 			num_requests++;
 		break;
 	case HARDSEED:
-		if (hardseedhint == 1){
-			hardseedhint = 0;
-			score = 0;
-		} else
 			hardseedhint -=1;
 			decreaseScore(num_requests);
 			num_requests++;
@@ -196,17 +75,135 @@ void Game::requestHint(enum Level level) {
 	}
 };
 
-void Game::decreaseScore(int n) { score -= pow(2, n); };
-
-void Game::endGame() { score = 0;	rookiehint = 0;	tufftonghint = 0;	hardseedhint = 0; };
-
-void Game::addNumberHint(size_t rn, enum Level level){
+void Game::addHint(enum Level level){
 	int rand_row_num = rand() % colums;
 	int rand_row_col = rand() % colums;
-	while (Game::checkIfFilled(playerArray,rand_row_num,rand_row_col)){
+	while (Game::isFilled(playerArray,rand_row_num,rand_row_col)){
     rand_row_num = rand() % colums;
 		rand_row_col = rand() % colums;
 	}
 	requestHint(level);
-	playerArray[rand_row_num][rand_row_col]= solutionArray[rand_row_num][rand_row_col];
+	playerArray[rand_row_num][rand_row_col] = solutionArray[rand_row_num][rand_row_col];
+}
+
+int Game::getScore() const { return score; };
+
+void Game::decreaseScore(int num_requests) { score -= pow(2, num_requests); };
+
+void Game::createGame(std::array <std::array< int,colums>, rows>& array)
+{
+	srand(time(NULL));
+
+	for (size_t i = 0; i < array.size(); i++)
+	{
+	repeat:
+		for (size_t j = 0; j < array.size(); j++)
+		{
+			array[i][j] = rand() % colums + 1;
+
+			for (size_t h = 0; h < j; h++)
+			{
+				while (array[i][j] == array[i][h])
+				{
+					array[i][j] = rand() % colums + 1;
+					goto repeat;
+				}
+			}
+			for (size_t k = 0; k < i; k++)
+			{
+				while (array[i][j] == array[k][j])
+				{
+					array[i][j] = rand() % colums + 1;
+					goto repeat;
+				}
+			}
+		}
+	}
+};
+
+void Game::createCopy(std::array<std::array< int,colums>, rows>& solutionArray,std::array <std::array< int,colums>, rows>& playerArray)
+{
+	for (size_t i = 0; i < rows; i++){
+		for (size_t j = 0; j < rows; j++)
+		{
+			playerArray[i][j] = solutionArray[i][j];
+		}
+		
+	}
+};
+
+void Game::removeSlots(std::array <std::array< int,colums>, rows>& array, int remove_amount) {
+	int count(0), randnum(0);
+	while (count != remove_amount) {
+		for (auto& row : array) {
+			for (auto& element : row) {
+				randnum = rand() % colums + 1;
+				if ((randnum == element) && count < remove_amount) {
+					element = 0;
+					count++;
+				}
+			}
+		}
+	}
+};
+
+bool Game::isCompleted(std::array<std::array<int, colums>, rows> &array)
+{
+	//return true if all the slots are filled
+	bool status = true;
+	for (auto const row : array)
+	{
+		for (auto const element : row)
+			if (element == 0)
+				status = false;
+	}	
+	return status;
+};
+
+bool Game::isInputCorrect(std::array<std::array< int,colums>, rows>& solutionArray,std::array <std::array< int,colums>, rows>& playerArray,size_t row_num,size_t col_num,int number){
+	if (number == solutionArray[row_num][col_num]){
+		playerArray[row_num][col_num] = number;
+		return true;
+	}
+	else
+		return false;
+}
+
+bool Game::isFilled(std::array <std::array< int,colums>, rows>& playerArray,size_t row_num,size_t col_num){
+	//return true if playerArray[rn][cn] is filled
+	return (playerArray[row_num][col_num] == 0)? false :true;
+}
+
+void Game::displayArray(std::array <std::array< int,colums>, rows>& array)
+{
+	cout << endl << "-------------------------" << endl;
+	for (auto const& row : array)
+	{
+		cout<<"| ";
+		for (auto const& element : row)
+		{
+			cout << element << " | ";
+		}
+			cout << endl << "-------------------------" << endl;
+	}
+};
+
+void Game::reset() { rookiehint = 2; tufftonghint = 3; hardseedhint = 4; score = 20; };
+
+int Game::stringToEndgame(std::string endGame){
+	std::transform(endGame.begin(), endGame.end(), endGame.begin(), ::toupper);
+	if(endGame== "YES" || endGame == "YE" || endGame == "Y"){
+		return 1;
+	} else if (endGame == "NO" || endGame == "N" )
+	{
+		return 0;
+	}
+	else
+	{
+		return 5;
+	}
+}
+
+void Game::endGame(){
+	score = 0;
 }
