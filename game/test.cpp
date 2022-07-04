@@ -48,14 +48,14 @@ int main()
 	} while (game.status == game.Status::UNDEFINED);
 
 	game.reset();
-	game.createGame(game.solutionArray);
-	game.createCopy(game.solutionArray, game.playerArray);
+	game.createGame();
+	game.createCopy();
 
 	switch (game.level)
 	{
 	case game.Level::ROOKIE:
-		game.removeSlots(game.playerArray, 10);
-		game.displayArray(game.playerArray);
+		game.removeSlots(10);
+		game.displayArray();
 		cout << endl;
 		do
 		{
@@ -65,8 +65,7 @@ int main()
 				{
 					std::cin.clear();
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input
-					std::cout << "Invalid input." << endl
-										<< " Please re-enter." << endl;
+					std::cout << "Invalid input." << endl << " Please re-enter." << endl;
 				}
 				row_number--;
 				switch (row_number)
@@ -84,8 +83,7 @@ int main()
 						{
 							std::cin.clear();
 							std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input
-							std::cout << "Invalid input." << endl
-												<< " Please re-enter." << endl;
+							std::cout << "Invalid input." << endl << " Please re-enter." << endl;
 						}
 						column_number--;
 
@@ -104,8 +102,7 @@ int main()
 								{
 									std::cin.clear();
 									std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input
-									std::cout << "Invalid input." << endl
-														<< " Please re-enter." << endl;
+									std::cout << "Invalid input." << endl << " Please re-enter." << endl;
 								}
 
 								switch (number)
@@ -117,23 +114,23 @@ int main()
 								case 5:
 								case 6:
 									invalidPlayerNumber = false;
-									if (game.isFilled(game.playerArray, row_number, column_number))
+									if (game.isFilled(row_number, column_number))
 									{
 										cout << "This slot is filled!!\nSelect another slot to fill." << endl;
 									}
-									else if (game.isInputCorrect(game.solutionArray, game.playerArray, row_number, column_number, number))
+									else if (game.isInputCorrect(row_number, column_number, number))
 									{
 										cout << "Your entry was correct!! :)" << endl;
 									}
 									else
 										cout << "Your entry was not correct!! :(" << endl;
 
-									game.displayArray(game.playerArray);
+									game.displayArray();
 
-									if (game.isCompleted(game.playerArray))
+									if (game.isCompleted())
 									{
 										cout << "Congratulations!! " << game.getName() << " has won the game," << endl
-												 << "and has scored " << game.getScore() << " points at Rookie level." << endl;
+												<< "and has scored " << game.getScore() << " points at Rookie level." << endl;
 										game.status = game.Status::WON;
 									}
 									else
@@ -154,13 +151,13 @@ int main()
 												else
 												{
 													game.addHint(game.level);
-													game.displayArray(game.playerArray);
+													game.displayArray();
 												}
 
-												if (game.isCompleted(game.playerArray))
+												if (game.isCompleted())
 												{
 													cout << "Congratulations!! " << game.getName() << " has won the game," << endl
-															 << "and has scored " << game.getScore() << " points at Rookie level." << endl;
+															<< "and has scored " << game.getScore() << " points at Rookie level." << endl;
 													game.status = game.Status::WON;
 												}
 												break;

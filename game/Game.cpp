@@ -78,7 +78,7 @@ void Game::requestHint(enum Level level) {
 void Game::addHint(enum Level level){
 	int rand_row_num = rand() % colums;
 	int rand_row_col = rand() % colums;
-	while (Game::isFilled(playerArray,rand_row_num,rand_row_col)){
+	while (Game::isFilled(rand_row_num,rand_row_col)){
     rand_row_num = rand() % colums;
 		rand_row_col = rand() % colums;
 	}
@@ -90,30 +90,30 @@ int Game::getScore() const { return score; };
 
 void Game::decreaseScore(int num_requests) { score -= pow(2, num_requests); };
 
-void Game::createGame(std::array <std::array< int,colums>, rows>& array)
+void Game::createGame()
 {
 	srand(time(NULL));
 
-	for (size_t i = 0; i < array.size(); i++)
+	for (size_t i = 0; i < solutionArray.size(); i++)
 	{
 	repeat:
-		for (size_t j = 0; j < array.size(); j++)
+		for (size_t j = 0; j < solutionArray.size(); j++)
 		{
-			array[i][j] = rand() % colums + 1;
+			solutionArray[i][j] = rand() % colums + 1;
 
 			for (size_t h = 0; h < j; h++)
 			{
-				while (array[i][j] == array[i][h])
+				while (solutionArray[i][j] == solutionArray[i][h])
 				{
-					array[i][j] = rand() % colums + 1;
+					solutionArray[i][j] = rand() % colums + 1;
 					goto repeat;
 				}
 			}
 			for (size_t k = 0; k < i; k++)
 			{
-				while (array[i][j] == array[k][j])
+				while (solutionArray[i][j] == solutionArray[k][j])
 				{
-					array[i][j] = rand() % colums + 1;
+					solutionArray[i][j] = rand() % colums + 1;
 					goto repeat;
 				}
 			}
@@ -121,7 +121,7 @@ void Game::createGame(std::array <std::array< int,colums>, rows>& array)
 	}
 };
 
-void Game::createCopy(std::array<std::array< int,colums>, rows>& solutionArray,std::array <std::array< int,colums>, rows>& playerArray)
+void Game::createCopy()
 {
 	for (size_t i = 0; i < rows; i++){
 		for (size_t j = 0; j < rows; j++)
@@ -132,10 +132,10 @@ void Game::createCopy(std::array<std::array< int,colums>, rows>& solutionArray,s
 	}
 };
 
-void Game::removeSlots(std::array <std::array< int,colums>, rows>& array, int remove_amount) {
+void Game::removeSlots( int remove_amount) {
 	int count(0), randnum(0);
 	while (count != remove_amount) {
-		for (auto& row : array) {
+		for (auto& row : playerArray) {
 			for (auto& element : row) {
 				randnum = rand() % colums + 1;
 				if ((randnum == element) && count < remove_amount) {
@@ -147,11 +147,11 @@ void Game::removeSlots(std::array <std::array< int,colums>, rows>& array, int re
 	}
 };
 
-bool Game::isCompleted(std::array<std::array<int, colums>, rows> &array)
+bool Game::isCompleted()
 {
 	//return true if all the slots are filled
 	bool status = true;
-	for (auto const row : array)
+	for (auto const row : playerArray)
 	{
 		for (auto const element : row)
 			if (element == 0)
@@ -160,7 +160,7 @@ bool Game::isCompleted(std::array<std::array<int, colums>, rows> &array)
 	return status;
 };
 
-bool Game::isInputCorrect(std::array<std::array< int,colums>, rows>& solutionArray,std::array <std::array< int,colums>, rows>& playerArray,size_t row_num,size_t col_num,int number){
+bool Game::isInputCorrect(size_t row_num,size_t col_num,int number){
 	if (number == solutionArray[row_num][col_num]){
 		playerArray[row_num][col_num] = number;
 		return true;
@@ -169,15 +169,15 @@ bool Game::isInputCorrect(std::array<std::array< int,colums>, rows>& solutionArr
 		return false;
 }
 
-bool Game::isFilled(std::array <std::array< int,colums>, rows>& playerArray,size_t row_num,size_t col_num){
+bool Game::isFilled(size_t row_num,size_t col_num){
 	//return true if playerArray[rn][cn] is filled
 	return (playerArray[row_num][col_num] == 0)? false :true;
 }
 
-void Game::displayArray(std::array <std::array< int,colums>, rows>& array)
+void Game::displayArray()
 {
 	cout << endl << "-------------------------" << endl;
-	for (auto const& row : array)
+	for (auto const& row : playerArray)
 	{
 		cout<<"| ";
 		for (auto const& element : row)
