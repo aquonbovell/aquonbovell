@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @aquonbovell
-- 👀 I’m interested in networks and system architecture.
+- 👀 I’m interested in computer networks and system architecture.
 - 🌱 I’m currently learning Data Science, Python and Javascript.
-- 💞️ I’m looking to collaborate on some small scale projects to better understand the git community and version control.
+- 💞️ I’m looking to collaborate on some small scale projects to better improve my coding skills and problem solving abilities.
 - 📫 How to reach me at my email: aquon_bovell@outlook.com
 
 <!---
