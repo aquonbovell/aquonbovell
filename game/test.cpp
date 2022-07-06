@@ -232,6 +232,6 @@ int main()
 		} while (game.status == game.Status::UNDEFINED);
 	}while (game.status == game.Status::RETRY);
 
-	std::cout << "Good bye. 👋" << std::endl;
+	std::cout << "Good Bye. 👋" << std::endl;
 	return 0;
 }
