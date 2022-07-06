@@ -2,7 +2,6 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm>
-#include <cstdlib>
 #include <ctime>
 
 Game::Game(std::string playerName, int Age) : Player(playerName, Age)
@@ -12,23 +11,23 @@ Game::Game(std::string playerName, int Age) : Player(playerName, Age)
 
 void Game::intro(std::string name)
 {
-	std::cout << "Welcome " << name << " to the game of SIX LOVE!!" <<std::endl
-						<< "This game features a 6x6 grid where, the elements in the grid range from 1 to 6." <<std::endl
-						<< "Each row and column has only one instant of each digit." <<std::endl
-						<<std::endl
-						<< "This game has three levels:\n   (1) Rookie \n   (2) Tuff Tong \n   (3) Hard Seed" <<std::endl
-						<<std::endl
-						<< "Rules:" <<std::endl
-						<<std::endl
-						<< "To choose a level you must enter the first letter or the full word \nthat corresponds to the intended level ((r/R/rookie/ROOKIE) for Rookie)." <<std::endl
-						<< "To play successfully you are required to enter a row number from 1 to 6 (inlcusive)," <<std::endl
-						<< "similarly with column number and your input, to fill the slots that have \'X\'." <<std::endl
-						<<std::endl
-						<< "At any point during the game you can quit by entering the number 11." <<std::endl
-						<< "Rookie has a maximum of 1 hint, Tuff Tong has a maximum of 2 hints and Hard Seed has a maximum of 3 hints." <<std::endl
-						<< "Request any higher than the amount allotted for each level, the game will end and you will be awarded zero points." <<std::endl
-						<<std::endl
-						<< "Enjoy the game!!" <<std::endl
+	std::cout << "Welcome " << name << " to the game of SIX LOVE!!" << std::endl
+						<< "This game features a 6x6 grid where, the elements in the grid range from 1 to 6." << std::endl
+						<< "Each row and column has only one instant of each digit." << std::endl
+						<< std::endl
+						<< "This game has three levels:\n   (1) Rookie \n   (2) Tuff Tong \n   (3) Hard Seed" << std::endl
+						<< std::endl
+						<< "Rules:" << std::endl
+						<< std::endl
+						<< "To choose a level you must enter the first letter or the full word \nthat corresponds to the intended level ((r/R/rookie/ROOKIE) for Rookie)." << std::endl
+						<< "To play successfully you are required to enter a row number from 1 to 6 (inlcusive)," << std::endl
+						<< "similarly with column number and your input, to fill the slots that have \'X\'." << std::endl
+						<< std::endl
+						<< "At any point during the game you can quit by entering the number 11." << std::endl
+						<< "Rookie has a maximum of 1 hint, Tuff Tong has a maximum of 2 hints and Hard Seed has a maximum of 3 hints." << std::endl
+						<< "Request any higher than the amount allotted for each level, the game will end and you will be awarded zero points." << std::endl
+						<< std::endl
+						<< "Enjoy the game!!" << std::endl
 						<< std::endl;
 }
 
@@ -274,24 +273,33 @@ void Game::displayArray()
 		std::cout << "| ";
 		for (auto const &element : row)
 		{
-			if (element==0){
-				std::cout <<'X';
-			} else{
-				std::cout<<element;
+			if (element == 0)
+			{
+				std::cout << 'X';
 			}
-			std::cout<<" | ";
+			else
+			{
+				std::cout << element;
+			}
+			std::cout << " | ";
 		}
 		std::cout << std::endl
 							<< "-------------------------" << std::endl;
 	}
 };
 
-void Game::reset(){ rookiehint = 2; tufftonghint = 3; hardseedhint = 4; score = 20; };
+void Game::reset()
+{
+	rookiehint = 2;
+	tufftonghint = 3;
+	hardseedhint = 4;
+	score = 20;
+};
 
 void Game::congratulatoryMessage()
 {
 	std::cout << "Congratulations!! " << getName() << " has won the game," << std::endl
-			<< "and has scored " << getScore() << " points at Rookie level." << std::endl;
+						<< "and has scored " << getScore() << " points at Rookie level." << std::endl;
 }
 
 int Game::stringToEndgame(std::string endGame)

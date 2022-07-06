@@ -11,7 +11,7 @@ int main()
 	std::getline(std::cin, name);
 	std::cout << "Enter your age: >> ";
 	std::getline(std::cin, age);
-	std::cout<<std::endl;
+	std::cout << std::endl;
 
 	Game game(name, stoi(age));
 
@@ -237,12 +237,12 @@ int main()
 			switch (game.stringToEndgame(endgame))
 			{
 			case 1:
-				std::cout <<"Selecting retry..." << std::endl;
+				std::cout << "Selecting retry..." << std::endl;
 				game.status = game.Status::RETRY;
-				std::cout <<"Retry selected\nRetrying..." << std::endl;
+				std::cout << "Retry selected\nRetrying..." << std::endl;
 				break;
 			case 0:
-				std::cout <<"Selecting end..." << std::endl;
+				std::cout << "Selecting end..." << std::endl;
 				game.status = game.Status::END;
 				std::cout << "End selected\nEnding..." << std::endl;
 				break;

@@ -1,15 +1,16 @@
-//Game Header
+// Game Header
 #ifndef GAME_H
 #define GAME_H
 #include "Player.h"
 #include <array>
 
-class Game : public Player{
+class Game : public Player
+{
 public:
 	static const int colums{6};
 	static const int rows{6};
-	std::array <std::array< int,colums>, rows> playerArray;
-	
+	std::array<std::array<int, colums>, rows> playerArray;
+
 	enum Status
 	{
 		WON,
@@ -21,7 +22,7 @@ public:
 		UNDEFINED
 	};
 	Status status;
-	
+
 	enum Level
 	{
 		ROOKIE,
@@ -30,47 +31,47 @@ public:
 		NO
 	};
 	Level level;
-	
-	//contructor
+
+	// contructor
 	Game(std::string playerName = "Player1", int Age = 12);
-	
-	//intro
+
+	// intro
 	void intro(std::string name);
-	
-	//coversion
+
+	// coversion
 	int stringToInt(std::string input);
 	int stringToLevel(std::string level);
 	int stringToStatus(std::string status);
 	int levelToHints(enum Level level);
-	
+
 	// hints
 	int getRookieHint() const;
 	int getTuffTongHint() const;
 	int getHardSeedHint() const;
 	void requestHint(enum Level level);
 	void addHint(enum Level level);
-	
-	//score
+
+	// score
 	int getScore() const;
 	void decreaseScore(int num_requests);
-	
-	//set arrays
+
+	// set arrays
 	void createGame();
 	void createCopy();
-	void removeSlots(enum Level level);	
-	
-	//check arrays
+	void removeSlots(enum Level level);
+
+	// check arrays
 	bool isCompleted();
-	bool isInputCorrect(size_t row_num,size_t col_num,int number);
-	bool isFilled(size_t row_num,size_t col_num);
-	
-	//display arrays
+	bool isInputCorrect(size_t row_num, size_t col_num, int number);
+	bool isFilled(size_t row_num, size_t col_num);
+
+	// display arrays
 	void displayArray();
-	
-	//reset score and hints
+
+	// reset score and hints
 	void reset();
-  
-	//terminate game
+
+	// terminate game
 	void congratulatoryMessage();
 	int stringToEndgame(std::string endGame);
 	void endGameMessage();
@@ -78,6 +79,6 @@ public:
 
 private:
 	int score, tufftonghint, hardseedhint, rookiehint;
-	std::array <std::array< int,colums>, rows> solutionArray;
+	std::array<std::array<int, colums>, rows> solutionArray;
 };
 #endif
