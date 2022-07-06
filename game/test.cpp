@@ -11,6 +11,7 @@ int main()
 	std::getline(std::cin, name);
 	std::cout << "Enter your age: >> ";
 	std::getline(std::cin, age);
+	std::cout<<std::endl;
 
 	Game game(name, stoi(age));
 
@@ -24,27 +25,32 @@ int main()
 			switch (game.stringToLevel(level))
 			{
 			case 1:
+				std::cout << "Selecting Rookie..." << std::endl;
 				game.level = game.Level::ROOKIE;
 				game.status = game.Status::CONTINUE;
-				std::cout << "Selection was successful\nContinuing..." << std::endl;
+				std::cout << "Rookie selected\nContinuing..." << std::endl;
 				break;
 			case 2:
+				std::cout << "Selecting Tuffting..." << std::endl;
 				game.level = game.Level::TUFFTONG;
 				game.status = game.Status::CONTINUE;
-				std::cout << "Selection was successful\nContinuing..." << std::endl;
+				std::cout << "Tufftong selected\nContinuing..." << std::endl;
 				break;
 			case 3:
+				std::cout << "Selecting Hardseed..." << std::endl;
 				game.level = game.Level::HARDSEED;
 				game.status = game.Status::CONTINUE;
-				std::cout << "Selection was successful\nContinuing..." << std::endl;
+				std::cout << "Hardseed selected\nContinuing..." << std::endl;
 				break;
 			case 4:
+				std::cout << "Selecting Quit..." << std::endl;
 				game.status = game.Status::QUIT;
-				std::cout << "Quitting...\nSad to see you go." << std::endl;
+				std::cout << "Quitting...\nSad to see you go" << std::endl;
 				break;
 			default:
+				std::cout << "No selection available" << std::endl;
 				game.status = game.Status::UNDEFINED;
-				std::cout << "There is no level for your selection.\nRetry please." << std::endl;
+				std::cout << "There is no level for your selection.\nRetry please" << std::endl;
 				break;
 			}
 		} while (game.status == game.Status::UNDEFINED);
@@ -107,17 +113,18 @@ int main()
 									isInvalidNumber = false;
 									if (game.isFilled(row_num, column_num))
 									{
-										std::cout << "This slot is filled!!\nSelect another slot to fill." << std::endl;
+										std::cout << "This slot is filled!!\nSelect another slot to fill" << std::endl;
 									}
 									else
 									{
-										std::cout << "Your entry " << (game.isInputCorrect(row_num, column_num, num) ? "was" : "was not") << "correct." << std::endl;
+										std::cout << "Your entry " << (game.isInputCorrect(row_num, column_num, num) ? "was" : "was not") << " correct" << std::endl;
 									}
 
 									game.displayArray();
 
 									if (game.isCompleted())
 									{
+										std::cout << "Congratulating..." << std::endl;
 										game.congratulatoryMessage();
 										game.status = game.Status::WON;
 									}
@@ -133,9 +140,10 @@ int main()
 												if (game.levelToHints(game.level) == 1)
 												{
 													// display ending game
-													std::cout << "Ending game...\nYou have reached your maximum hints." << std::endl;
+													std::cout << "Ending game...\nYou have reached your maximum hints" << std::endl;
 													game.endGame();
 													game.status = game.Status::LOST;
+													std::cout << "This game has ended" << std::endl;
 												}
 												else
 												{
@@ -146,6 +154,7 @@ int main()
 
 												if (game.isCompleted())
 												{
+													std::cout << "Congratulating..." << std::endl;
 													game.congratulatoryMessage();
 													game.status = game.Status::WON;
 												}
@@ -154,27 +163,31 @@ int main()
 												std::cout << "Quitting game..." << std::endl;
 												game.endGame();
 												game.status = game.Status::QUIT;
+												std::cout << "You have quit this game" << std::endl;
 												break;
 											case 3:
 												std::cout << "Continuing..." << std::endl;
 												break;
 											default:
+												std::cout << "No selection available" << std::endl;
 												game.status = game.Status::UNDEFINED;
-												std::cout << "There is no option for your selection.\nRetry please." << std::endl;
+												std::cout << "There is no option for your selection.\nRetry please" << std::endl;
 												break;
 											}
 										} while (game.status == game.Status::UNDEFINED);
 									}
 									break;
-								case 10:
+								case 11:
 									isInvalidNumber = false;
 									std::cout << "Quitting game..." << std::endl;
 									game.endGame();
 									game.status = game.Status::QUIT;
+									std::cout << "You have quit this game" << std::endl;
 									break;
 								default:
+									std::cout << "No selection available" << std::endl;
 									isInvalidNumber = true;
-									std::cout << "Your number is invalid.\nRetry please.";
+									std::cout << "There is no option for your selection.\nRetry please";
 									break;
 								}
 							} while (isInvalidNumber);
@@ -185,10 +198,12 @@ int main()
 							std::cout << "Quitting game..." << std::endl;
 							game.endGame();
 							game.status = game.Status::QUIT;
+							std::cout << "You have quit this game" << std::endl;
 							break;
 						default:
+							std::cout << "No selection available" << std::endl;
 							isInvalidColumnNumber = true;
-							std::cout << "Your number is invalid.\nRetry please.";
+							std::cout << "There is no option for your selection.\nRetry please";
 							break;
 						}
 					} while (isInvalidColumnNumber); // col num
@@ -198,10 +213,12 @@ int main()
 					std::cout << "Quitting game..." << std::endl;
 					game.endGame();
 					game.status = game.Status::QUIT;
+					std::cout << "You have quit this game" << std::endl;
 					break;
 				default:
+					std::cout << "No selection available" << std::endl;
 					isInvalidRowNumber = true;
-					std::cout << "There is no option for your selection.\nRetry please.";
+					std::cout << "There is no option for your selection.\nRetry please";
 					break;
 				}
 			} while (isInvalidRowNumber);									// continues if the row number is not 1-5 or 10
@@ -209,7 +226,6 @@ int main()
 
 		if (game.status == game.Status::QUIT || game.status == game.Status::LOST)
 			game.endGameMessage();
-
 		do
 		{
 			// Asks the user if they would like to play another game:
@@ -221,16 +237,24 @@ int main()
 			switch (game.stringToEndgame(endgame))
 			{
 			case 1:
+				std::cout <<"Selecting retry..." << std::endl;
 				game.status = game.Status::RETRY;
+				std::cout <<"Retry selected\nRetrying..." << std::endl;
+				break;
 			case 0:
+				std::cout <<"Selecting end..." << std::endl;
 				game.status = game.Status::END;
+				std::cout << "End selected\nEnding..." << std::endl;
+				break;
 			default:
+				std::cout << "No selection available" << std::endl;
 				game.status = game.Status::UNDEFINED;
-				std::cout << "There is no option for your selection.\nRetry please." << std::endl;
+				std::cout << "There is no option for your selection.\nRetry please" << std::endl;
+				break;
 			}
 		} while (game.status == game.Status::UNDEFINED);
 	} while (game.status == game.Status::RETRY);
 
-	std::cout << "Good Bye. 👋" << std::endl;
+	std::cout << "Game has ended" << std::endl;
 	return 0;
 }

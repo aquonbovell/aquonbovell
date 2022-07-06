@@ -20,13 +20,11 @@ void Game::intro(std::string name)
 						<<std::endl
 						<< "Rules:" <<std::endl
 						<<std::endl
-						<< "To choose a level you must enter the first letter that corresponds to intended level (i.e. 'r' or 'R' for Rookie)." <<std::endl
+						<< "To choose a level you must enter the first letter or the full word \nthat corresponds to the intended level ((r/R/rookie/ROOKIE) for Rookie)." <<std::endl
 						<< "To play successfully you are required to enter a row number from 1 to 6 (inlcusive)," <<std::endl
-						<< "similarly with column number and your input, to fill the slots that have zeros." <<std::endl
+						<< "similarly with column number and your input, to fill the slots that have \'X\'." <<std::endl
 						<<std::endl
-						<< "At any prompt during the game you can quit by entering the number '99'." <<std::endl
-						<< "HOWEVER, DO NOT ENTER A NUMBER WHEN PROMPT FOR A HINT, INSTEAD ENTER THE LETTER 'Q'" <<std::endl
-						<<std::endl
+						<< "At any point during the game you can quit by entering the number 11." <<std::endl
 						<< "Rookie has a maximum of 1 hint, Tuff Tong has a maximum of 2 hints and Hard Seed has a maximum of 3 hints." <<std::endl
 						<< "Request any higher than the amount allotted for each level, the game will end and you will be awarded zero points." <<std::endl
 						<<std::endl
@@ -143,6 +141,7 @@ void Game::requestHint(enum Level level)
 
 void Game::addHint(enum Level level)
 {
+	std::cout << "Adding hint..." << std::endl;
 	int rand_row_num = rand() % colums;
 	int rand_row_col = rand() % colums;
 	while (Game::isFilled(rand_row_num, rand_row_col))
@@ -275,7 +274,12 @@ void Game::displayArray()
 		std::cout << "| ";
 		for (auto const &element : row)
 		{
-			std::cout << (element == 0 ? 'X' : element) << " | ";
+			if (element==0){
+				std::cout <<'X';
+			} else{
+				std::cout<<element;
+			}
+			std::cout<<" | ";
 		}
 		std::cout << std::endl
 							<< "-------------------------" << std::endl;
