@@ -5,48 +5,63 @@
 #include <cstdlib>
 #include <ctime>
 
-using std::cout; using std::endl;
-
-Game::Game(std::string playerName, int Age) : Player(playerName, Age) {
+Game::Game(std::string playerName, int Age) : Player(playerName, Age)
+{
 	intro(Player::getName());
 };
 
-void Game::intro(std::string name){
-	cout << "Welcome "<<name<<" to the game of SIX LOVE!!"<<endl<<
-	"This game features a 6x6 grid where, the elements in the grid range from 1 to 6."<<endl<<
-	"Each row and column has only one instant of each digit."<<endl<<endl<<
-	"This game has three levels:\n   (1) Rookie \n   (2) Tuff Tong \n   (3) Hard Seed"<<endl<<endl<<
-	"Rules:"<<endl<<endl<<"To choose a level you must enter the first letter that corresponds to intended level (i.e. 'r' or 'R' for Rookie)."<<endl<<
-	"To play successfully you are required to enter a row number from 1 to 6 (inlcusive)," <<endl<<
-    "similarly with column number and your input, to fill the slots that have zeros."<<endl<<endl<<
-	"At any prompt during the game you can quit by entering the number '99'."<<endl<<
-	"HOWEVER, DO NOT ENTER A NUMBER WHEN PROMPT FOR A HINT, INSTEAD ENTER THE LETTER 'Q'"<<endl<<endl<<
-	"Rookie has a maximum of 1 hint, Tuff Tong has a maximum of 2 hints and Hard Seed has a maximum of 3 hints."<<endl<<
-	"Request any higher than the amount allotted for each level, the game will end and you will be awarded zero points."<<endl<<endl<<"Enjoy the game!!"<<endl<<endl;
+void Game::intro(std::string name)
+{
+	std::cout << "Welcome " << name << " to the game of SIX LOVE!!" <<std::endl
+						<< "This game features a 6x6 grid where, the elements in the grid range from 1 to 6." <<std::endl
+						<< "Each row and column has only one instant of each digit." <<std::endl
+						<<std::endl
+						<< "This game has three levels:\n   (1) Rookie \n   (2) Tuff Tong \n   (3) Hard Seed" <<std::endl
+						<<std::endl
+						<< "Rules:" <<std::endl
+						<<std::endl
+						<< "To choose a level you must enter the first letter that corresponds to intended level (i.e. 'r' or 'R' for Rookie)." <<std::endl
+						<< "To play successfully you are required to enter a row number from 1 to 6 (inlcusive)," <<std::endl
+						<< "similarly with column number and your input, to fill the slots that have zeros." <<std::endl
+						<<std::endl
+						<< "At any prompt during the game you can quit by entering the number '99'." <<std::endl
+						<< "HOWEVER, DO NOT ENTER A NUMBER WHEN PROMPT FOR A HINT, INSTEAD ENTER THE LETTER 'Q'" <<std::endl
+						<<std::endl
+						<< "Rookie has a maximum of 1 hint, Tuff Tong has a maximum of 2 hints and Hard Seed has a maximum of 3 hints." <<std::endl
+						<< "Request any higher than the amount allotted for each level, the game will end and you will be awarded zero points." <<std::endl
+						<<std::endl
+						<< "Enjoy the game!!" <<std::endl
+						<< std::endl;
 }
 
-int Game::stringToInt(std::string input){
+int Game::stringToInt(std::string input)
+{
 	try
-			{
-				return stoi(input);
-			}
-			catch(const std::exception& e)
-			{
-				return 20;
-			}
+	{
+		return stoi(input);
+	}
+	catch (const std::exception &e)
+	{
+		return 20;
+	}
 }
 
-int Game::stringToLevel(std::string level){
+int Game::stringToLevel(std::string level)
+{
 	std::transform(level.begin(), level.end(), level.begin(), ::toupper);
-	if(level == "ROOKIE" || level == "R"){
+	if (level == "ROOKIE" || level == "R")
+	{
 		return 1;
-	} else if (level == "TUFFTONG" || level == "T" )
+	}
+	else if (level == "TUFFTONG" || level == "T")
 	{
 		return 2;
-	} else if (level == "HARDSEED" || level == "H")
+	}
+	else if (level == "HARDSEED" || level == "H")
 	{
 		return 3;
-	} else if (level == "QUIT" || level == "Q")
+	}
+	else if (level == "QUIT" || level == "Q")
 	{
 		return 4;
 	}
@@ -56,14 +71,18 @@ int Game::stringToLevel(std::string level){
 	}
 }
 
-int Game::stringToStatus(std::string status){
+int Game::stringToStatus(std::string status)
+{
 	std::transform(status.begin(), status.end(), status.begin(), ::toupper);
-	if(status == "HINT" || status == "H"){
+	if (status == "HINT" || status == "H")
+	{
 		return 1;
-	} else if (status == "QUIT" || status == "Q" )
+	}
+	else if (status == "QUIT" || status == "Q")
 	{
 		return 2;
-	} else if (status == "CONTINUE" || status == "C")
+	}
+	else if (status == "CONTINUE" || status == "C")
 	{
 		return 3;
 	}
@@ -73,7 +92,8 @@ int Game::stringToStatus(std::string status){
 	}
 }
 
-int Game::levelToHints(enum Level level){
+int Game::levelToHints(enum Level level)
+{
 	switch (level)
 	{
 	case Level::ROOKIE:
@@ -96,40 +116,43 @@ int Game::getTuffTongHint() const { return tufftonghint; };
 
 int Game::getHardSeedHint() const { return hardseedhint; };
 
-void Game::requestHint(enum Level level) {
+void Game::requestHint(enum Level level)
+{
 	static int num_requests = 1;
 	switch (level)
 	{
 	case ROOKIE:
-			rookiehint -=1;
-			decreaseScore(num_requests);
-			num_requests++;
+		rookiehint -= 1;
+		decreaseScore(num_requests);
+		num_requests++;
 		break;
 	case TUFFTONG:
-			tufftonghint -=1;
-			decreaseScore(num_requests);
-			num_requests++;
+		tufftonghint -= 1;
+		decreaseScore(num_requests);
+		num_requests++;
 		break;
 	case HARDSEED:
-			hardseedhint -=1;
-			decreaseScore(num_requests);
-			num_requests++;
+		hardseedhint -= 1;
+		decreaseScore(num_requests);
+		num_requests++;
 		break;
 	default:
 		break;
 	}
 };
 
-void Game::addHint(enum Level level){
+void Game::addHint(enum Level level)
+{
 	int rand_row_num = rand() % colums;
 	int rand_row_col = rand() % colums;
-	while (Game::isFilled(rand_row_num,rand_row_col)){
-    rand_row_num = rand() % colums;
+	while (Game::isFilled(rand_row_num, rand_row_col))
+	{
+		rand_row_num = rand() % colums;
 		rand_row_col = rand() % colums;
 	}
 	requestHint(level);
 	playerArray[rand_row_num][rand_row_col] = solutionArray[rand_row_num][rand_row_col];
-	std::cout<<"Hint added at row : "<<rand_row_num+1<< " and column : "<<rand_row_col+1 << std::endl;
+	std::cout << "Hint added at row : " << rand_row_num + 1 << " and column : " << rand_row_col + 1 << std::endl;
 }
 
 int Game::getScore() const { return score; };
@@ -169,16 +192,17 @@ void Game::createGame()
 
 void Game::createCopy()
 {
-	for (size_t i = 0; i < rows; i++){
+	for (size_t i = 0; i < rows; i++)
+	{
 		for (size_t j = 0; j < rows; j++)
 		{
 			playerArray[i][j] = solutionArray[i][j];
 		}
-		
 	}
 };
 
-void Game::removeSlots( enum Level level) {
+void Game::removeSlots(enum Level level)
+{
 	int remove_amount;
 	switch (level)
 	{
@@ -195,11 +219,15 @@ void Game::removeSlots( enum Level level) {
 		break;
 	}
 	int count(0), randnum(0);
-	while (count != remove_amount) {
-		for (auto& row : playerArray) {
-			for (auto& element : row) {
+	while (count != remove_amount)
+	{
+		for (auto &row : playerArray)
+		{
+			for (auto &element : row)
+			{
 				randnum = rand() % colums + 1;
-				if ((randnum == element) && count < remove_amount) {
+				if ((randnum == element) && count < remove_amount)
+				{
 					element = 0;
 					count++;
 				}
@@ -210,19 +238,21 @@ void Game::removeSlots( enum Level level) {
 
 bool Game::isCompleted()
 {
-	//return true if all the slots are filled
+	// return true if all the slots are filled
 	bool status = true;
 	for (auto const row : playerArray)
 	{
 		for (auto const element : row)
 			if (element == 0)
 				status = false;
-	}	
+	}
 	return status;
 };
 
-bool Game::isInputCorrect(size_t row_num,size_t col_num,int number){
-	if (number == solutionArray[row_num][col_num]){
+bool Game::isInputCorrect(size_t row_num, size_t col_num, int number)
+{
+	if (number == solutionArray[row_num][col_num])
+	{
 		playerArray[row_num][col_num] = number;
 		return true;
 	}
@@ -230,37 +260,44 @@ bool Game::isInputCorrect(size_t row_num,size_t col_num,int number){
 		return false;
 }
 
-bool Game::isFilled(size_t row_num,size_t col_num){
-	//return true if playerArray[rn][cn] is filled
-	return (playerArray[row_num][col_num] == 0)? false :true;
+bool Game::isFilled(size_t row_num, size_t col_num)
+{
+	// return true if playerArray[rn][cn] is filled
+	return (playerArray[row_num][col_num] == 0) ? false : true;
 }
 
 void Game::displayArray()
 {
-	cout << endl << "-------------------------" << endl;
-	for (auto const& row : playerArray)
+	std::cout << std::endl
+						<< "-------------------------" << std::endl;
+	for (auto const &row : playerArray)
 	{
-		cout<<"| ";
-		for (auto const& element : row)
+		std::cout << "| ";
+		for (auto const &element : row)
 		{
-			cout << (element==0?'X':element) << " | ";
+			std::cout << (element == 0 ? 'X' : element) << " | ";
 		}
-			cout << endl << "-------------------------" << endl;
+		std::cout << std::endl
+							<< "-------------------------" << std::endl;
 	}
 };
 
-void Game::reset() { rookiehint = 2; tufftonghint = 3; hardseedhint = 4; score = 20; };
+void Game::reset(){ rookiehint = 2; tufftonghint = 3; hardseedhint = 4; score = 20; };
 
-void Game::congratulatoryMessage(){
-	cout << "Congratulations!! " << getName() << " has won the game," << endl
-			<< "and has scored " << getScore() << " points at Rookie level." << endl;
+void Game::congratulatoryMessage()
+{
+	std::cout << "Congratulations!! " << getName() << " has won the game," << std::endl
+			<< "and has scored " << getScore() << " points at Rookie level." << std::endl;
 }
 
-int Game::stringToEndgame(std::string endGame){
+int Game::stringToEndgame(std::string endGame)
+{
 	std::transform(endGame.begin(), endGame.end(), endGame.begin(), ::toupper);
-	if(endGame== "YES" || endGame == "YE" || endGame == "Y"){
+	if (endGame == "YES" || endGame == "YE" || endGame == "Y")
+	{
 		return 1;
-	} else if (endGame == "NO" || endGame == "N" )
+	}
+	else if (endGame == "NO" || endGame == "N")
 	{
 		return 0;
 	}
@@ -270,21 +307,28 @@ int Game::stringToEndgame(std::string endGame){
 	}
 }
 
-void Game::endGameMessage(){
-	std::cout << endl << "Game had ended.\n"<<getName() << " has obtained " << getScore()
-			<< " points for this game.\n"<< "The solution is: " << endl;
-	cout << endl << "-------------------------" << endl;
-	for (auto const& row : solutionArray)
+void Game::endGameMessage()
+{
+	std::cout << std::endl
+						<< "Game had ended.\n"
+						<< getName() << " has obtained " << getScore()
+						<< " points for this game.\n"
+						<< "The solution is: " << std::endl;
+	std::cout << std::endl
+						<< "-------------------------" << std::endl;
+	for (auto const &row : solutionArray)
 	{
-		cout<<"| ";
-		for (auto const& element : row)
+		std::cout << "| ";
+		for (auto const &element : row)
 		{
-			cout << (element==0?'X':element) << " | ";
+			std::cout << (element == 0 ? 'X' : element) << " | ";
 		}
-			cout << endl << "-------------------------" << endl;
+		std::cout << std::endl
+							<< "-------------------------" << std::endl;
 	}
 };
 
-void Game::endGame(){
+void Game::endGame()
+{
 	score = 0;
 }
