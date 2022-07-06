@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Game.h"
 
-
 int main()
 {
 	std::string name, age, level, requesthint, row_number, column_number, number;
@@ -13,10 +12,10 @@ int main()
 	std::cout << "Enter your age: >> ";
 	std::getline(std::cin, age);
 
-	// Displays the welcome message and rules of the game and initialises all data-members of the Player's class
 	Game game(name, stoi(age));
 
-	do{
+	do
+	{
 		// level selection
 		do
 		{
@@ -230,7 +229,7 @@ int main()
 				std::cout << "There is no option for your selection.\nRetry please." << std::endl;
 			}
 		} while (game.status == game.Status::UNDEFINED);
-	}while (game.status == game.Status::RETRY);
+	} while (game.status == game.Status::RETRY);
 
 	std::cout << "Good Bye. 👋" << std::endl;
 	return 0;
