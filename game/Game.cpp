@@ -25,6 +25,17 @@ void Game::intro(std::string name){
 	"Request any higher than the amount allotted for each level, the game will end and you will be awarded zero points."<<endl<<endl<<"Enjoy the game!!"<<endl<<endl;
 }
 
+int Game::stringToInt(std::string input){
+	try
+			{
+				return stoi(input);
+			}
+			catch(const std::exception& e)
+			{
+				return 20;
+			}
+}
+
 int Game::stringToLevel(std::string level){
 	std::transform(level.begin(), level.end(), level.begin(), ::toupper);
 	if(level == "ROOKIE" || level == "R"){
@@ -42,6 +53,40 @@ int Game::stringToLevel(std::string level){
 	else
 	{
 		return 5;
+	}
+}
+
+int Game::stringToStatus(std::string status){
+	std::transform(status.begin(), status.end(), status.begin(), ::toupper);
+	if(status == "HINT" || status == "H"){
+		return 1;
+	} else if (status == "QUIT" || status == "Q" )
+	{
+		return 2;
+	} else if (status == "CONTINUE" || status == "C")
+	{
+		return 3;
+	}
+	else
+	{
+		return 5;
+	}
+}
+
+int Game::levelToHints(enum Level level){
+	switch (level)
+	{
+	case Level::ROOKIE:
+		return getRookieHint();
+		break;
+	case Level::TUFFTONG:
+		return getTuffTongHint();
+		break;
+	case Level::HARDSEED:
+		return getHardSeedHint();
+		break;
+	default:
+		break;
 	}
 }
 
@@ -84,6 +129,7 @@ void Game::addHint(enum Level level){
 	}
 	requestHint(level);
 	playerArray[rand_row_num][rand_row_col] = solutionArray[rand_row_num][rand_row_col];
+	std::cout<<"Hint added at row : "<<rand_row_num+1<< " and column : "<<rand_row_col+1 << std::endl;
 }
 
 int Game::getScore() const { return score; };
@@ -132,7 +178,22 @@ void Game::createCopy()
 	}
 };
 
-void Game::removeSlots( int remove_amount) {
+void Game::removeSlots( enum Level level) {
+	int remove_amount;
+	switch (level)
+	{
+	case Level::ROOKIE:
+		remove_amount = 10;
+		break;
+	case Level::TUFFTONG:
+		remove_amount = 15;
+		break;
+	case Level::HARDSEED:
+		remove_amount = 20;
+		break;
+	default:
+		break;
+	}
 	int count(0), randnum(0);
 	while (count != remove_amount) {
 		for (auto& row : playerArray) {
@@ -182,13 +243,18 @@ void Game::displayArray()
 		cout<<"| ";
 		for (auto const& element : row)
 		{
-			cout << element << " | ";
+			cout << (element==0?'X':element) << " | ";
 		}
 			cout << endl << "-------------------------" << endl;
 	}
 };
 
 void Game::reset() { rookiehint = 2; tufftonghint = 3; hardseedhint = 4; score = 20; };
+
+void Game::congratulatoryMessage(){
+	cout << "Congratulations!! " << getName() << " has won the game," << endl
+			<< "and has scored " << getScore() << " points at Rookie level." << endl;
+}
 
 int Game::stringToEndgame(std::string endGame){
 	std::transform(endGame.begin(), endGame.end(), endGame.begin(), ::toupper);
@@ -203,6 +269,21 @@ int Game::stringToEndgame(std::string endGame){
 		return 5;
 	}
 }
+
+void Game::endGameMessage(){
+	std::cout << endl << "Game had ended.\n"<<getName() << " has obtained " << getScore()
+			<< " points for this game.\n"<< "The solution is: " << endl;
+	cout << endl << "-------------------------" << endl;
+	for (auto const& row : solutionArray)
+	{
+		cout<<"| ";
+		for (auto const& element : row)
+		{
+			cout << (element==0?'X':element) << " | ";
+		}
+			cout << endl << "-------------------------" << endl;
+	}
+};
 
 void Game::endGame(){
 	score = 0;

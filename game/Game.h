@@ -21,22 +21,27 @@ public:
 		UNDEFINED
 	};
 	Status status;
+	
 	enum Level
 	{
 		ROOKIE,
 		TUFFTONG,
-		HARDSEED
+		HARDSEED,
+		NO
 	};
 	Level level;
-
+	
 	//contructor
 	Game(std::string playerName = "Player1", int Age = 12);
 	
 	//intro
 	void intro(std::string name);
 	
-	//level selection
+	//coversion
+	int stringToInt(std::string input);
 	int stringToLevel(std::string level);
+	int stringToStatus(std::string status);
+	int levelToHints(enum Level level);
 	
 	// hints
 	int getRookieHint() const;
@@ -52,7 +57,7 @@ public:
 	//set arrays
 	void createGame();
 	void createCopy();
-	void removeSlots(int remove_amount);	
+	void removeSlots(enum Level level);	
 	
 	//check arrays
 	bool isCompleted();
@@ -66,10 +71,13 @@ public:
 	void reset();
   
 	//terminate game
+	void congratulatoryMessage();
 	int stringToEndgame(std::string endGame);
+	void endGameMessage();
 	void endGame();
 
 private:
-	int score, tufftonghint, hardseedhint, rookiehint;std::array <std::array< int,colums>, rows> solutionArray;
+	int score, tufftonghint, hardseedhint, rookiehint;
+	std::array <std::array< int,colums>, rows> solutionArray;
 };
 #endif
