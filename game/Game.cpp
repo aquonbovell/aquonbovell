@@ -1,8 +1,9 @@
 #include "Game.h"
-#include <iostream>
-#include <cmath>
 #include <algorithm>
+#include <cmath>
+#include <cstdlib>
 #include <ctime>
+#include <iostream>
 
 Game::Game(std::string playerName, int Age) : Player(playerName, Age)
 {
@@ -140,6 +141,8 @@ void Game::requestHint(enum Level level)
 
 void Game::addHint(enum Level level)
 {
+	srand(time(NULL));
+	
 	std::cout << "Adding hint..." << std::endl;
 	int rand_row_num = rand() % colums;
 	int rand_row_col = rand() % colums;
