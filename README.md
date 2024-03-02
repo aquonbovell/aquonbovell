@@ -1,6 +1,5 @@
 # 💫 About Me:
-I am currently working on a threads clone using next js 14 with realtime updates<br><br>I am looking to collaborate on the svelte framework to add more Clerk Auth into production ready libraries<br><br>I am currently learning Computer security, NoSQL databases, graphics, user interface design for my final semester<br><br>Ask me about my time as the President of the Computer Science Society<br><br>Fun fact I have a strong background in biology and chemistry
-
+I'm currently developing a Next.js 14-based threads clone with real-time updates.<br><br>I am looking to collaborate on incorporating more Clerk Auth into production-ready Svelte frameworks.<br><br>Currently a final semester CS student, diving into Computer Security, NoSQL databases, graphics, and user interface design.<br><br>Ask me about my tenure as the President of the Computer Science Society where I gained valuable experiences and insights.<br><br>Fun fact I have a robust background in biology and chemistry, making for a unique blend of skills and interests.
 
 ## 🌐 Socials:
 [![Discord](https://img.shields.io/badge/Discord-%237289DA.svg?logo=discord&logoColor=white)](https://discord.gg/https://discord.gg/Zpr7pb8D) [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/instagram.com/_neverstandalone/) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/linkedin.com/in/aquon-bovell-184874163/) 
